@@ -1,26 +1,72 @@
+require_relative "node"
+
 # Build a Tree class which accepts an array when initialized. The Tree class should have a root
 #  attribute which uses the return value of #build_tree which you’ll write next.
 
 class Tree
+  attr_accessor :root
+  @sorted = 0
+
   def initialize
     @root = nil
   end
 
-# Method which takes an array of data and turns it into a balanced binary tree full of 
-# Node objects appropriately placed. The #build_tree method should return the level-1 root node.
-  
+  # Method which takes an array of data and turns it into a balanced binary tree full of
+  # Node objects appropriately placed. The #build_tree method should return the level-1 root node.
   def build_tree(ary)
-    ary.sort.uniq!
-    ary.each do |element| 
-      new_node = new.node
-      new_node.value = element
+    ary_sort(ary) if is_sorted?
+    p ary
+    if ary.size == 1
+      new_node = new_node(ary)
+      def_root(new_node)
+      new_node
+    elsif ary.size > 1
+      new_node = new_node(ary)
+      def_root(new_node)
+      left = ary[0...ary.size / 2]
+      new_node.left_node(build_tree(left))
+      right = ary[ary.size / 2 + 1..-1]
+      right.reverse! if right.size < 3
+      new_node.right_node(build_tree(right))
+    end
+    new_node
+  end
+
+  def new_node(ary)
+    new_node = Node.new
+    new_node.value(ary[ary.size / 2])
+    new_node
+  end
+
+  def def_root(node)
+    @root = node if @root.nil?
+  end
+
+  def is_sorted?
+    if @sorted == 0
+      false
+    else
+      true
     end
   end
 
-# Write an #insert and #delete method which accepts a value to insert/delete
+  def ary_sort(ary)
+    ary.sort!.uniq!
+    @sorted = 1
+  end
+
+  # Write an #insert and #delete method which accepts a value to insert/delete
 
   def insert(value)
-
+    new_node = Node.new
+    new_node.value = value
+    if value < @root.r_value
+      p @root.left
+    elsif value > @root.r_value
+      p @root.right
+    else
+      p "here"
+    end
   end
 
   def delete(value)
@@ -91,6 +137,10 @@ end
 # Write a simple driver script that does the following:
 # 
 # 1. Create a binary search tree from an array of random numbers (`Array.new(15) { rand(1..100) }`)
+bst = Tree.new
+bst.build_tree(Array.new(15) { rand(1..100) })
+p bst
+#bst.insert(30)
 # 2. Confirm that the tree is balanced by calling `#balanced?`
 # 3. Print out all elements in level, pre, post, and in order
 # 4. try to unbalance the tree by adding several numbers > 100

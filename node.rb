@@ -2,7 +2,7 @@
 # as well as its left and right children.
 
 class Node
-  attr_accessor :value, :next
+  attr_accessor :value, :right, :left
   
   def initialize
     @value = nil
