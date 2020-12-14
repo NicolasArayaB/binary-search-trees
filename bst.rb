@@ -5,7 +5,7 @@ require_relative "node"
 
 class Tree
   attr_accessor :root
-  @sorted = 0
+  @sorted = 1
 
   def initialize
     @root = nil
@@ -14,8 +14,8 @@ class Tree
   # Method which takes an array of data and turns it into a balanced binary tree full of
   # Node objects appropriately placed. The #build_tree method should return the level-1 root node.
   def build_tree(ary)
-    ary_sort(ary) if is_sorted?
-    p ary
+    ary_sort(ary) if !sorted?
+
     if ary.size == 1
       new_node = new_node(ary)
       def_root(new_node)
@@ -42,32 +42,35 @@ class Tree
     @root = node if @root.nil?
   end
 
-  def is_sorted?
-    if @sorted == 0
-      false
-    else
-      true
-    end
+  def sorted?
+    @sorted == 0 ? true : false
   end
 
   def ary_sort(ary)
     ary.sort!.uniq!
-    @sorted = 1
+    @sorted = 0
   end
 
   # Write an #insert and #delete method which accepts a value to insert/delete
 
-  def insert(value)
-    new_node = Node.new
-    new_node.value = value
-    if value < @root.r_value
-      p @root.left
-    elsif value > @root.r_value
-      p @root.right
-    else
-      p "here"
+  def insert(num, node = @root)
+    p node.r_value
+    if num < node.r_value
+      if node.left == nil
+        node.rigth_node(new_node([num]))
+      else
+        insert(num, node.left)
+      end
+    elsif num > @root.r_value
+      if node.right == nil
+        p "right"
+        node.rigth_node(new_node([num]))
+      else
+        insert(num, node.right)
+      end
     end
   end
+
 
   def delete(value)
 
@@ -138,9 +141,11 @@ end
 # 
 # 1. Create a binary search tree from an array of random numbers (`Array.new(15) { rand(1..100) }`)
 bst = Tree.new
-bst.build_tree(Array.new(15) { rand(1..100) })
+#bst.build_tree(Array.new(15) { rand(1..100) })
+bst.build_tree([1, 2, 3, 5, 6, 7, 8])
 p bst
-#bst.insert(30)
+bst.insert(4)
+p bst
 # 2. Confirm that the tree is balanced by calling `#balanced?`
 # 3. Print out all elements in level, pre, post, and in order
 # 4. try to unbalance the tree by adding several numbers > 100
