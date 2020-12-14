@@ -6,8 +6,8 @@ class Node
   
   def initialize
     @value = nil
+    @left = nil
     @right = nil
-    @left = nil 
   end
 
   def value(value)
