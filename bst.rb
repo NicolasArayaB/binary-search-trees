@@ -18,15 +18,14 @@ class Tree
 
     if ary.size == 1
       new_node = new_node(ary)
-      def_root(new_node)
+      set_root(new_node)
       new_node
     elsif ary.size > 1
       new_node = new_node(ary)
-      def_root(new_node)
+      set_root(new_node)
       left = ary[0...ary.size / 2]
-      new_node.left_node(build_tree(left))
       right = ary[ary.size / 2 + 1..-1]
-      right.reverse! if right.size < 3
+      new_node.left_node(build_tree(left))
       new_node.right_node(build_tree(right))
     end
     new_node
@@ -34,11 +33,11 @@ class Tree
 
   def new_node(ary)
     new_node = Node.new
-    new_node.value(ary[ary.size / 2])
+    new_node.value(ary[ary.size / 2]) 
     new_node
   end
 
-  def def_root(node)
+  def set_root(node)
     @root = node if @root.nil?
   end
 
@@ -54,17 +53,18 @@ class Tree
   # Write an #insert and #delete method which accepts a value to insert/delete
 
   def insert(num, node = @root)
-    p node.r_value
+    p "value #{node.r_value} right #{node.right.r_value}"
     if num < node.r_value
       if node.left == nil
-        node.rigth_node(new_node([num]))
+        p "left"
+        node.left_node(new_node([num]))
       else
         insert(num, node.left)
       end
     elsif num > @root.r_value
       if node.right == nil
         p "right"
-        node.rigth_node(new_node([num]))
+        node.right_node(new_node([num]))
       else
         insert(num, node.right)
       end
@@ -142,7 +142,7 @@ end
 # 1. Create a binary search tree from an array of random numbers (`Array.new(15) { rand(1..100) }`)
 bst = Tree.new
 #bst.build_tree(Array.new(15) { rand(1..100) })
-bst.build_tree([1, 2, 3, 5, 6, 7, 8])
+bst.build_tree([2, 3, 5, 6, 7, 8])
 p bst
 bst.insert(4)
 p bst
