@@ -24,7 +24,7 @@ A balanced tree is one where the difference between heights of left subtree and 
 
 ## Status
 
-This proyect is not finished yet.
+This proyect is not finished yet. You can create a balanced Binary Search Tree and use the insert method to add new nodes.
 
 ### This is part of The Odin Project curriculum.
 ![Image text](https://www.theodinproject.com/assets/odin-logo-2d729f16279e9fc3b58ce847eacf07f883bdfc95eb23bb5064ed59d36ef551d6.svg)
