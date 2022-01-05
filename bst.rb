@@ -122,7 +122,17 @@ class Tree
 # Method that returns an array of values. This method should traverse the tree in breadth-first level order.
 
   def level_order
-
+    return if self.root.nil?
+    
+    queue = Queue.new
+    queue << self.root
+    
+    until queue.empty?
+      node = queue.pop
+      p node.r_value unless node.r_value.nil?
+      queue << node.left if node.left
+      queue << node.right if node.right
+    end
   end
 
 # #inorder, #preorder, and #postorder methods that returns an array of values. 
@@ -177,9 +187,10 @@ bst = Tree.new
 bst.build_tree([2, 3, 5, 6, 7, 8])
 #p bst.insert(4)
 #p bst.delete_node(6)
-p bst.find_node(7)
+#p bst.find_node(7)
 # 2. Confirm that the tree is balanced by calling `#balanced?`
 # 3. Print out all elements in level, pre, post, and in order
+bst.level_order
 # 4. try to unbalance the tree by adding several numbers > 100
 # 5. Confirm that the tree is unbalanced by calling `#balanced?`
 # 6. Balance the tree by calling `#rebalance`
