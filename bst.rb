@@ -1,7 +1,7 @@
 require_relative "node"
 
 # Build a Tree class which accepts an array when initialized. The Tree class should have a root
-#  attribute which uses the return value of #build_tree which you’ll write next.
+#  attribute which uses the return value of #build_tree.
 
 class Tree
   attr_accessor :root
@@ -11,8 +11,7 @@ class Tree
     @root = nil
   end
 
-  # Method which takes an array of data and turns it into a balanced binary tree full of
-  # Node objects appropriately placed. The #build_tree method should return the level-1 root node.
+  # Method which takes an array of data and turns it into a balanced binary tree full of Node objects appropriately placed.
   def build_tree(ary)
     ary_sort(ary) if not sorted?
 
@@ -50,7 +49,7 @@ class Tree
     @sorted = 0
   end
 
-  # Write an #insert and #delete method which accepts a value to insert/delete
+  # #insert and #delete method which accepts a value to insert/delete
 
   def insert(num, node = @root)
     if num < node.r_value
@@ -120,16 +119,13 @@ class Tree
     end
   end
 
-# Method that returns an array of values. This method should traverse the tree in breadth-first 
-# level order. This method can be implemented using either iteration or recursion 
-# (try implementing both!). Tip: You will want to use an array acting as a queue to keep track of 
-# all the child nodes that you have yet to traverse and to add new ones to the list
+# Method that returns an array of values. This method should traverse the tree in breadth-first level order.
 
   def level_order
 
   end
 
-# Write #inorder, #preorder, and #postorder methods that returns an array of values. 
+# #inorder, #preorder, and #postorder methods that returns an array of values. 
 # Each method should traverse the tree in their respective depth-first order.
 
   def inorder
@@ -144,14 +140,14 @@ class Tree
 
   end
 
-# Write a #height method which accepts a node and returns its height. 
+# #height method which accepts a node and returns its height. 
 # Height is defined as the number of edges in longest path from a given node to a leaf node.
 
   def height(node)
 
   end
 
-# Write a #depth method which accepts a node and returns its depth. 
+# #depth method which accepts a node and returns its depth. 
 # Depth is defined as the number of edges in path from a given node to the tree’s root node.
 
   def depth(node)
@@ -166,16 +162,14 @@ class Tree
 
   end
 
-# Write a #rebalance method which rebalances an unbalanced tree. 
-# Tip: You’ll want to create a level-order array of the tree before passing the array back into
-# the #build_tree method.
+# #rebalance method which rebalances an unbalanced tree.
 
   def rebalance
 
   end
 end
 
-# Write a simple driver script that does the following:
+# A simple driver script.
 
 # 1. Create a binary search tree from an array of random numbers (`Array.new(15) { rand(1..100) }`)
 bst = Tree.new
