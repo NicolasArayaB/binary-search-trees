@@ -97,7 +97,7 @@ class Tree
         node = nil
         temp
       else
-        
+
         # if node has two children, find the smallest value in the right subtree
         temp = min_value_node(node.right)
         node.value(temp.r_value)
@@ -110,8 +110,14 @@ class Tree
 
 # Method which accepts a value and returns the node with the given value.
 
-  def find_node(value)
-
+  def find_node(value, node = @root)
+    if node.r_value == value
+      node
+    elsif node.r_value > value
+      find_node(value, node.left)
+    elsif node.r_value < value
+      find_node(value, node.right)
+    end
   end
 
 # Method that returns an array of values. This method should traverse the tree in breadth-first 
@@ -175,11 +181,9 @@ end
 bst = Tree.new
 #bst.build_tree(Array.new(15) { rand(1..100) })
 bst.build_tree([2, 3, 5, 6, 7, 8])
-#p bst
-#bst.insert(4)
-#p bst
-p bst.delete_node(6)
-#p bst.find_node(5)
+#p bst.insert(4)
+#p bst.delete_node(6)
+p bst.find_node(7)
 # 2. Confirm that the tree is balanced by calling `#balanced?`
 # 3. Print out all elements in level, pre, post, and in order
 # 4. try to unbalance the tree by adding several numbers > 100
