@@ -14,7 +14,7 @@ class Tree
   # Method which takes an array of data and turns it into a balanced binary tree full of
   # Node objects appropriately placed. The #build_tree method should return the level-1 root node.
   def build_tree(ary)
-    ary_sort(ary) if !sorted?
+    ary_sort(ary) if not sorted?
 
     if ary.size == 1
       new_node = new_node(ary)
@@ -53,21 +53,12 @@ class Tree
   # Write an #insert and #delete method which accepts a value to insert/delete
 
   def insert(num, node = @root)
-    p "value #{node.r_value} right #{node.right.r_value}"
     if num < node.r_value
-      if node.left == nil
-        p "left"
-        node.left_node(new_node([num]))
-      else
-        insert(num, node.left)
-      end
-    elsif num > @root.r_value
-      if node.right == nil
-        p "right"
-        node.right_node(new_node([num]))
-      else
-        insert(num, node.right)
-      end
+      insert(num, node.left) if node.left
+      node.left_node(num) if node.left.nil?
+    elsif num > node.r_value
+      insert(num, node.right) if node.right
+      node.right_node(num) if node.right.nil?
     end
   end
 
@@ -138,12 +129,12 @@ class Tree
 end
 
 # Write a simple driver script that does the following:
-# 
+
 # 1. Create a binary search tree from an array of random numbers (`Array.new(15) { rand(1..100) }`)
 bst = Tree.new
 #bst.build_tree(Array.new(15) { rand(1..100) })
 bst.build_tree([2, 3, 5, 6, 7, 8])
-p bst
+#p bst
 bst.insert(4)
 p bst
 # 2. Confirm that the tree is balanced by calling `#balanced?`
