@@ -62,14 +62,55 @@ class Tree
     end
   end
 
+  def min_value_node(node)
+    temp = node
+    temp = min_value_node(temp.left) unless temp.left.nil?
+    temp
+  end
 
-  def delete(value)
 
+  def delete_node(value, node = @root)
+    return node if node.nil?
+
+    # if value is less than node.value
+    if value < node.r_value
+      node.left = delete_node(value, node.left) if node.left
+
+    # if value is greater than node.value
+    elsif value > node.r_value
+      node.right = delete_node(value, node.right) if node.right
+    
+    # if value is equal to node.value, delete it.
+    elsif value == node.r_value
+      
+      # if node has no children
+      if node.left.nil? && node.right.nil?
+        node = nil
+
+      # if node has only one child
+      elsif node.left.nil?
+        temp = node.right
+        node = nil
+        temp
+      elsif node.right.nil?
+        temp = node.left
+        node = nil
+        temp
+      else
+        
+        # if node has two children, find the smallest value in the right subtree
+        temp = min_value_node(node.right)
+        node.value(temp.r_value)
+        node.right = delete_node(temp.r_value, node.right)
+      end
+    end
+    
+    node
   end
 
 # Method which accepts a value and returns the node with the given value.
 
-  def find(value)
+  def find_node(value)
 
   end
 
@@ -135,8 +176,10 @@ bst = Tree.new
 #bst.build_tree(Array.new(15) { rand(1..100) })
 bst.build_tree([2, 3, 5, 6, 7, 8])
 #p bst
-bst.insert(4)
-p bst
+#bst.insert(4)
+#p bst
+p bst.delete_node(6)
+#p bst.find_node(5)
 # 2. Confirm that the tree is balanced by calling `#balanced?`
 # 3. Print out all elements in level, pre, post, and in order
 # 4. try to unbalance the tree by adding several numbers > 100
