@@ -170,8 +170,9 @@ class Tree
 # #height method which accepts a node and returns its height. 
 # Height is defined as the number of edges in longest path from a given node to a leaf node.
 
-  def height(node)
-
+  def height(node= @root)
+    return 0 if node.nil?
+    1 + [height(node.left), height(node.right)].max
   end
 
 # #depth method which accepts a node and returns its depth. 
@@ -202,17 +203,22 @@ end
 bst = Tree.new
 #bst.build_tree(Array.new(15) { rand(1..100) })
 bst.build_tree([2, 3, 5, 6, 7, 8])
-#p bst.insert(4)
-#p bst.delete_node(6)
-#p bst.find_node(7)
 # 2. Confirm that the tree is balanced by calling `#balanced?`
 # 3. Print out all elements in level, pre, post, and in order
 #bst.level_order
 #bst.preorder
 #bst.inorder
-bst.postorder
+# bst.postorder
 # 4. try to unbalance the tree by adding several numbers > 100
+bst.insert(100)
+bst.insert(200)
+bst.insert(300)
+bst.insert(400)
 # 5. Confirm that the tree is unbalanced by calling `#balanced?`
 # 6. Balance the tree by calling `#rebalance`
 # 7. Confirm that the tree is balanced by calling `#balanced?`
 # 8. Print out all elements in level, pre, post, and in order
+
+#p bst.delete_node(6)
+#p bst.find_node(7)
+p bst.height
