@@ -54,10 +54,18 @@ class Tree
   def insert(num, node = @root)
     if num < node.r_value
       insert(num, node.left) if node.left
-      node.left_node(num) if node.left.nil?
+      if node.left.nil?
+        new_node = Node.new
+        new_node.value(num)
+        node.left_node(new_node)
+      end
     elsif num > node.r_value
       insert(num, node.right) if node.right
-      node.right_node(num) if node.right.nil?
+      if node.right.nil?
+        new_node = Node.new
+        new_node.value(num)
+        node.right_node(new_node)
+      end
     end
   end
 
