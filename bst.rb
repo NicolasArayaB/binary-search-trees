@@ -138,16 +138,25 @@ class Tree
 # #inorder, #preorder, and #postorder methods that returns an array of values. 
 # Each method should traverse the tree in their respective depth-first order.
 
-  def inorder
-
+  def inorder(node = @root)
+    return if node.nil?
+    inorder(node.left) unless node.left.nil?
+    p node.r_value
+    inorder(node.right) unless node.right.nil?
   end
 
-  def preorder
-
+  def preorder(node = @root)
+    return if node.nil?
+    p node.r_value
+    preorder(node.left)
+    preorder(node.right) 
   end
 
-  def postorder
-
+  def postorder(node = @root)
+    return if node.nil?
+    postorder(node.left)
+    postorder(node.right)
+    p node.r_value
   end
 
 # #height method which accepts a node and returns its height. 
@@ -190,7 +199,10 @@ bst.build_tree([2, 3, 5, 6, 7, 8])
 #p bst.find_node(7)
 # 2. Confirm that the tree is balanced by calling `#balanced?`
 # 3. Print out all elements in level, pre, post, and in order
-bst.level_order
+#bst.level_order
+#bst.preorder
+#bst.inorder
+bst.postorder
 # 4. try to unbalance the tree by adding several numbers > 100
 # 5. Confirm that the tree is unbalanced by calling `#balanced?`
 # 6. Balance the tree by calling `#rebalance`
